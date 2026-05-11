@@ -3,6 +3,8 @@ package com.glottia.backend.controller;
 import com.glottia.backend.dto.AuthorResponse;
 import com.glottia.backend.dto.LoginRequest;
 import com.glottia.backend.security.JwtService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/ingresos")
+@Tag(name = "Autenticación", description = "Endpoint de login y generación de token JWT")
 public class AuthController {
 
     private final AuthenticationManager authenticationManager;
@@ -25,6 +28,7 @@ public class AuthController {
     }
 
     @PostMapping
+    @Operation(summary = "Iniciar sesión", description = "Autentica al usuario y retorna un token JWT")
     public ResponseEntity<AuthorResponse> login(@RequestBody LoginRequest loginRequest) {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
